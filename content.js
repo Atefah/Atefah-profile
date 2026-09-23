@@ -31,6 +31,8 @@ window.portfolioContent = {
   contacts: [
     { label: 'Location', value: 'Herat, Afghanistan · Remote', url: '' },
     { label: 'LinkedIn', value: 'linkedin.com/in/atefah-mohammadi', url: 'https://www.linkedin.com/in/atefah-mohammadi/' },
-    { label: 'Email', value: 'atefa.abedi5@gmail.com', url: 'mailto:atefa.abedi5@gmail.com' }
+    { label: 'Email', value: 'atefa.abedi5@gmail.com', url: 'mailto:atefa.abedi5@gmail.com' },
+    { label: 'Phone', value: '+93 728 832 147', url: 'tel:+93728832147' },
+    { label: 'GitHub', value: 'github.com/Atefah', url: 'https://github.com/Atefah' }
   ]
 };
