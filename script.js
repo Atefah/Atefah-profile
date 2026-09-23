@@ -1,0 +1,23 @@
+(() => {
+  const data = window.portfolioContent;
+  if (!data) return;
+  document.title = data.title;
+  document.querySelector('meta[name="description"]').content = data.intro;
+  document.querySelectorAll('[data-field]').forEach(el => { el.textContent = data[el.dataset.field] || ''; });
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const node = (tag, className, value) => { const el = document.createElement(tag); if (className) el.className = className; if (value !== undefined) el.textContent = value; return el; };
+  const strip = document.getElementById('skill-strip');
+  data.skills.forEach((skill, i) => { if (i) strip.append(node('span', 'ticker-star', '✳')); strip.append(node('span', '', skill)); });
+  const facts = document.getElementById('facts');
+  data.facts.forEach(f => { const item = node('div', 'fact'); item.append(node('strong', '', f.value), node('span', '', f.label)); facts.append(item); });
+  const projects = document.getElementById('projects');
+  data.projects.forEach(p => { const article = node('article', `project project-${p.style || 'coral'}`); const visual = node('div', 'project-visual'); visual.append(node('span', 'visual-index', p.number), node('span', 'visual-shape', '✳'), node('span', 'visual-caption', p.category)); const body = node('div', 'project-body'); body.append(node('span', 'project-category', p.category), node('h3', '', p.title), node('p', '', p.description)); const tags = node('div', 'tags'); p.tags.forEach(t => tags.append(node('span', '', t))); body.append(tags); if (p.url) { const link = node('a', 'project-link', 'Visit website ↗'); link.href = p.url; link.target = '_blank'; link.rel = 'noopener noreferrer'; body.append(link); } article.append(visual, body); projects.append(article); });
+  const timeline = document.getElementById('timeline');
+  data.experience.forEach(e => { const item = node('article', 'timeline-item'); item.append(node('span', 'period', e.period)); const body = node('div', 'timeline-body'); body.append(node('h3', '', e.role), node('span', 'organization', e.organization), node('p', '', e.description)); item.append(body); timeline.append(item); });
+  const education = document.getElementById('education-list');
+  data.education.forEach(e => { const item = node('article', 'timeline-item'); item.append(node('span', 'period', e.period)); const body = node('div', 'timeline-body'); body.append(node('h3', '', e.role), node('span', 'organization', e.organization), node('p', '', e.description)); item.append(body); education.append(item); });
+  const contacts = document.getElementById('contact-links');
+  const availableContacts = data.contacts.filter(c => c.url);
+  document.getElementById('contact-pending').hidden = availableContacts.length > 0;
+  availableContacts.forEach(c => { const link = node('a', 'contact-link'); link.href = c.url; if (/^https?:/.test(c.url)) { link.target = '_blank'; link.rel = 'noopener noreferrer'; } link.append(node('span', '', c.label), node('strong', '', c.value), node('span', 'contact-arrow', '↗')); contacts.append(link); });
+})();
